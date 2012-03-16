@@ -15,7 +15,7 @@ class mysqliWrapper extends DatabaseAbstract implements DatabaseWrapper
     private function initialization()
     {
         if (!($this->link instanceof mysqli)) {
-            $this->link = call_user_func_array(array(new ReflectionClass('mysqli'), 'newInstance'), $this->config);
+            $this->link = call_user_func_array(array(new ReflectionClass('mysqli'), 'newInstance'), $this->initParams);
             foreach ($this->initialization as $val) {
                 $this->link->query($val);
             }

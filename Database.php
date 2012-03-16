@@ -123,15 +123,54 @@ class Database
 
 abstract class DatabaseAbstract
 {
-    protected $config = array();
+    protected $initParams = array();
     protected $link = null;
+
+    protected $config = array(
+        'tablePreFix' => null,
+        'replaceTableName' => true,
+        'initSQL' => array()
+    );
+
     public $initialization = array();
 
-    function __construct($config)
+    public function setConfig($key, $value)
     {
-        $this->config = $config;
-        if (!is_array($this->config)) {
-            $this->link = $this->config;
+        
+    }
+    
+    public function getConfig($key, $value)
+    {
+        
+    }
+
+    public function getTable($table_name)
+    {
+        if (self::$preFix === null) {
+            return $table_name;
+        }
+
+        if (is_string(self::$preFix)) {
+            return self::$preFix.$table_name;
+        }
+
+        foreach (self::$preFix as $key => $val) {
+            if ($val == '*') {
+                return $key.$table_name;
+            }
+            if (in_array($table_name, $val)) {
+                return $key.$table_name;
+            }
+        }
+
+        return $table_name;
+    }
+
+    function __construct($initParams)
+    {
+        $this->initParams = $initParams;
+        if (!is_array($this->initParams)) {
+            $this->link = $this->initParams;
         }
     }
 

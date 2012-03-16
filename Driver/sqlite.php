@@ -16,7 +16,7 @@ class sqliteWrapper extends DatabaseAbstract implements DatabaseWrapper
     {
         if (!($this->link instanceof SQLiteDatabase)) {
             $this->link = call_user_func_array(
-                array(new ReflectionClass('SQLiteDatabase'), 'newInstance'), $this->config);
+                array(new ReflectionClass('SQLiteDatabase'), 'newInstance'), $this->initParams);
             foreach ($this->initialization as $val) {
                 $this->link->query($val);
             }

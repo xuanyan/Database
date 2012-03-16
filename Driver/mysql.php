@@ -15,8 +15,8 @@ class mysqlWrapper extends DatabaseAbstract implements DatabaseWrapper
     private function initialization()
     {
         if ($this->link === null) {
-            $dbname = array_pop($this->config);
-            $this->link = call_user_func_array('mysql_connect', $this->config);
+            $dbname = array_pop($this->initParams);
+            $this->link = call_user_func_array('mysql_connect', $this->initParams);
             mysql_select_db($dbname, $this->link);
             foreach ($this->initialization as $val) {
                 mysql_unbuffered_query($val, $this->link);

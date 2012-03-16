@@ -15,7 +15,7 @@ class PDOWrapper extends DatabaseAbstract implements DatabaseWrapper
     private function initialization()
     {
         if (!($this->link instanceof PDO)) {
-            $this->link = call_user_func_array(array(new ReflectionClass('PDO'), 'newInstance'), $this->config);
+            $this->link = call_user_func_array(array(new ReflectionClass('PDO'), 'newInstance'), $this->initParams);
             foreach ($this->initialization as $val) {
                 $this->link->query($val);
             }
