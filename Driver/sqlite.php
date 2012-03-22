@@ -29,6 +29,10 @@ class sqliteWrapper extends DatabaseAbstract implements DatabaseWrapper
     {
         $params = func_get_args();
         $sql = array_shift($params);
+        
+        if ($this->getConfig('replaceTableName')) {
+            $sql = preg_replace_callback('/{{(\w+)}}/', array($this, 'getTable'), $sql);
+        }
 
         Database::$debug && Database::$sql[] = $sql;
 

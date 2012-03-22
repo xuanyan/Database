@@ -14,7 +14,6 @@ class Database
     public static $sql = array();
     private static $connections = array();
     public static $instance = null;
-    public static $preFix = null;
     public static $debug = false;
     private $driver = null;
 
@@ -30,28 +29,6 @@ class Database
     function __set($name, $value)
     {
         $this->driver->$name = $value;
-    }
-
-    public static function getTable($table_name)
-    {
-        if (self::$preFix === null) {
-            return $table_name;
-        }
-
-        if (is_string(self::$preFix)) {
-            return self::$preFix.$table_name;
-        }
-
-        foreach (self::$preFix as $key => $val) {
-            if ($val == '*') {
-                return $key.$table_name;
-            }
-            if (in_array($table_name, $val)) {
-                return $key.$table_name;
-            }
-        }
-
-        return $table_name;
     }
 
     function __call($fun, $params = array())
@@ -129,32 +106,49 @@ abstract class DatabaseAbstract
     protected $config = array(
         'tablePreFix' => null,
         'replaceTableName' => true,
-        'initSQL' => array()
+        'initialization' => array()
     );
 
-    public $initialization = array();
+    public function __get($key)
+    {
+        return $this->getConfig($key);
+    }
+
+    public function __set($key, $value)
+    {
+        return $this->setConfig($key, $value);
+    }
 
     public function setConfig($key, $value)
     {
-        
+        $this->config[$key] = $value;
+
+        return true;
     }
-    
-    public function getConfig($key, $value)
+
+    public function getConfig($key)
     {
-        
+        return isset($this->config[$key]) ? $this->config[$key] : false;
     }
 
     public function getTable($table_name)
     {
-        if (self::$preFix === null) {
+        // for preg_replace_callback
+        if (is_array($table_name) && isset($table_name[1])) {
+            $table_name = $table_name[1];
+        }
+
+        $tablePreFix = $this->getConfig('tablePreFix');
+
+        if (!$tablePreFix) {
             return $table_name;
         }
 
-        if (is_string(self::$preFix)) {
-            return self::$preFix.$table_name;
+        if (is_string($tablePreFix)) {
+            return $tablePreFix.$table_name;
         }
 
-        foreach (self::$preFix as $key => $val) {
+        foreach ($tablePreFix as $key => $val) {
             if ($val == '*') {
                 return $key.$table_name;
             }
