@@ -109,11 +109,12 @@ abstract class DatabaseAbstract
         'initialization' => array()
     );
 
+    // get config
     public function __get($key)
     {
         return $this->getConfig($key);
     }
-
+    // set config
     public function __set($key, $value)
     {
         return $this->setConfig($key, $value);
