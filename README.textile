@@ -1,4 +1,5 @@
 the database abstraction supports mysql mysqli PDO SQLiteDatabase AND SQLite3 now, and will support more in future...
+for more infomations plz "hit here":https://github.com/xuanyan/Database
 
 h2. how to use it:
 
@@ -173,14 +174,14 @@ $db->setConfig('tablePreFix', 'db_');
 // or set multi table-prefix
 $db->setConfig('tablePreFix', array(
     'db1_'=>array('table1', 'table2'),
-    'db2_'=> '*' // means the other tables use 'db2_'
+    'db2_'=> '*' // means the other tables use 'db2_' prefix
 ));
 
 // and u can get the table name by getTable function
 
 $table_name = $db->getTable('table1'); // db1_table1
 
-// and the sql will be auto replaced the table name with  'tablePreFix' by dafault if you use '{{tablename}}'
+// and the sql will be auto replaced the table name with  'tablePreFix' by dafault if you use '{{tablename}}' in sql
 
 $sql = "SELECT * FROM {{table1}}";
 // SELECT * FROM db1_table1

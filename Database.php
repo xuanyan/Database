@@ -20,6 +20,8 @@ class Database
     const NUM = 0;
     const ASSOC = 1;
     const BOTH = 2;
+    
+    const VERSION = '20120323';
 
     function __get($name)
     {
