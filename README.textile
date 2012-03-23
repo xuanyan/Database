@@ -144,7 +144,7 @@ public function fetch($query);
 ?>
 ```
 
-h3. i removed the code of initialization in class, the class just did the connecting work, you can exec 'the initialization sql' after connect like this, sure, it is lazy-executing just like the connecting.
+h3. the class just do the connecting work at initialization. you can exec 'the initialization sql' after connect like this, sure, it is lazy-executing just like the connecting.
 
 ```php5
 <?php
@@ -154,5 +154,42 @@ $db->initialization = array(
   'SET character_set_connection=utf8, character_set_results=utf8, character_set_client=binary',
   "SET sql_mode=''"
 );
+// it's same as above 
+$db->setConfig('initialization', array(
+  'SET character_set_connection=utf8, character_set_results=utf8, character_set_client=binary',
+  "SET sql_mode=''"
+));
 ?>
 ```
+
+h3. use table-prefix
+
+```php5
+<?php
+//mysql
+$db = Database::connect('mysql', 'localhost', 'root', 'root', 'test');
+
+$db->setConfig('tablePreFix', 'db_');
+// or set multi table-prefix
+$db->setConfig('tablePreFix', array(
+    'db1_'=>array('table1', 'table2'),
+    'db2_'=> '*' // means the other tables use 'db2_'
+));
+
+// and u can get the table name by getTable function
+
+$table_name = $db->getTable('table1'); // db1_table1
+
+// and the sql will be auto replaced the table name with  'tablePreFix' by dafault if you use '{{tablename}}'
+
+$sql = "SELECT * FROM {{table1}}";
+// SELECT * FROM db1_table1
+$result = $db->getAll($sql);
+
+// and you can disable the auto-replace by using:
+
+$db->setConfig('replaceTableName', false);
+
+?>
+```
+
