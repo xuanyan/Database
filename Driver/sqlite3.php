@@ -12,7 +12,7 @@
 class sqlite3Wrapper extends DatabaseAbstract implements DatabaseWrapper
 {
     // lazy loading
-    private function initialization()
+    protected function initialization()
     {
         if (!($this->link instanceof SQLite3)) {
             $this->link = call_user_func_array(

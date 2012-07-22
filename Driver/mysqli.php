@@ -12,7 +12,7 @@
 class mysqliWrapper extends DatabaseAbstract implements DatabaseWrapper
 {
     // lazy loading
-    private function initialization()
+    protected function initialization()
     {
         if (!($this->link instanceof mysqli)) {
             $this->link = call_user_func_array(array(new ReflectionClass('mysqli'), 'newInstance'), $this->initParams);

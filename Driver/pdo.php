@@ -12,7 +12,7 @@
 class PDOWrapper extends DatabaseAbstract implements DatabaseWrapper
 {
     // lazy loading
-    private function initialization()
+    protected function initialization()
     {
         if (!($this->link instanceof PDO)) {
             $this->link = call_user_func_array(array(new ReflectionClass('PDO'), 'newInstance'), $this->initParams);

@@ -12,7 +12,7 @@
 class mysqlWrapper extends DatabaseAbstract implements DatabaseWrapper
 {
     // lazy loading
-    private function initialization()
+    protected function initialization()
     {
         if ($this->link === null) {
             $dbname = array_pop($this->initParams);
