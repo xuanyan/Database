@@ -39,14 +39,14 @@ class PDOWrapper extends DatabaseAbstract implements DatabaseWrapper
 
         if (!isset($params[0])) {
             if (!$sth = $this->link->query($sql)) {
-                throw new Exception("Error sql query:$sql");
+                throw new DatabaseException("Error sql query:$sql");
             }
         } else {
             if (is_array($params[0])) {
                 $params = $params[0];
             }
             if (!($sth = $this->link->prepare($sql)) || !($sth->execute($params))) {
-                throw new Exception("Error sql prepare:$sql");
+                throw new DatabaseException("Error sql prepare:$sql");
             }
         }
 

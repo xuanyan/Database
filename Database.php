@@ -61,7 +61,7 @@ class Database
                 $driver = 'sqlite';
             }
         } else {
-            throw new Exception("cant auto detect the database driver");
+            throw new DatabaseException("cant auto detect the database driver");
         }
 
         require_once dirname(__FILE__).'/Driver/'.$driver.'.php';
@@ -232,6 +232,11 @@ interface DatabaseWrapper
     public function getDriver();
     public function query();
     public function fetch($query);
+}
+
+class DatabaseException extends Exception
+{
+    
 }
 
 ?>

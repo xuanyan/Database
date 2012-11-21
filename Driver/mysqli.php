@@ -50,13 +50,13 @@ class mysqliWrapper extends DatabaseAbstract implements DatabaseWrapper
                 $sql = str_replace($tmp[0], '?', $sql);
             }
             if (!$stmt = $this->link->prepare($sql)) {
-                throw new Exception("Error sql query:$sql");
+                throw new DatabaseException("Error sql query:$sql");
             }
             $s = str_repeat('s', count($params));
             array_unshift($params, $s);
             call_user_func_array(array($stmt, 'bind_param'), $params);
         } elseif (!$stmt = $this->link->prepare($sql)) {
-            throw new Exception("Error sql query:$sql");
+            throw new DatabaseException("Error sql query:$sql");
         }
 
         $stmt->execute();

@@ -41,14 +41,14 @@ class sqlite3Wrapper extends DatabaseAbstract implements DatabaseWrapper
 
         if (!isset($params[0])) {
             if (!$sth = $this->link->query($sql)) {
-                throw new Exception("Error sql query:$sql");
+                throw new DatabaseException("Error sql query:$sql");
             }
         } else {            
             if (is_array($params[0])) {
                 $params = $params[0];
             }
             if (!$stmt = $this->link->prepare($sql)) {
-                throw new Exception("Error sql query:$sql");
+                throw new DatabaseException("Error sql query:$sql");
             }
             if (preg_match_all('/:(\w+)/i', $sql, $tmp)) {
                 foreach ($tmp[1] as $key => $val) {

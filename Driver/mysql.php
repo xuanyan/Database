@@ -63,7 +63,7 @@ class mysqlWrapper extends DatabaseAbstract implements DatabaseWrapper
 
         $query = mysql_query($sql, $this->link);
         if ($query === false) {
-            throw new Exception("Error sql query:$sql");
+            throw new DatabaseException("Error sql query:$sql");
         }
         return $query;
     }
