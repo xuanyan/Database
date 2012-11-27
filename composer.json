@@ -1,0 +1,6 @@
+{
+    "name": "XuanYan/Database",
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
