@@ -1,5 +1,5 @@
 {
-    "name": "XuanYan/Database",
+    "name": "xuanyan/Database",
     "require": {
         "php": ">=5.3.0"
     }
