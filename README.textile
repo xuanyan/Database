@@ -1,6 +1,16 @@
 the database abstraction supports mysql mysqli PDO SQLiteDatabase AND SQLite3 now, and will support more in future...
 for more infomations plz "hit here":https://github.com/xuanyan/Database
 
+h2. install with composer
+
+```
+{
+    "require": {
+        "xuanyan/database": "dev-master"
+    }
+}
+```
+
 h2. how to use it:
 
 h3. database initialization: 
