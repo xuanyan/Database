@@ -55,6 +55,29 @@ class Database
     {
         if (is_array($params)) {
             $driver = array_shift($params);
+        } elseif (strpos($params, '://')) {  // dsn
+            if (!$dsn = parse_url($params)) {
+                throw new DatabaseException("cant detect the dsn: {$params}");
+            }
+            if (!isset($dsn['scheme'])) {
+                throw new DatabaseException("cant detect the driver: {$params}");
+            }
+            $driver = $dsn['scheme'];
+            $params = array();
+            
+            $params[0] = isset($dsn['host']) ? $dsn['host'] : '';
+            $params[1] = isset($dsn['user']) ? $dsn['user'] : '';
+            $params[2] = isset($dsn['pass']) ? $dsn['pass'] : '';
+            $params[3] = isset($dsn['path']) ? ltrim($dsn['path'], '/') : '';
+
+            if ($driver == 'mysql') {
+                isset($dsn['port']) && $params[0] .= ":{$dsn['port']}";
+            } elseif ($driver == 'mysqli') {
+                isset($dsn['port']) && $params[4] = $dsn['port'];
+            } else {
+                throw new DatabaseException("not support dsn driver: {$driver}");
+            }
+
         } elseif (preg_match('/type \((\w+)|object\((\w+)\)/', $sp, $driver)) {
             $driver = strtolower(array_pop($driver));
             if ($driver == 'sqlitedatabase') {
