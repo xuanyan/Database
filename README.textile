@@ -3,7 +3,7 @@ for more infomations plz "hit here":https://github.com/xuanyan/Database
 
 h2. install with composer
 
-```
+```php5
 {
     "require": {
         "xuanyan/database": "dev-master"
