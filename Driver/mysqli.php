@@ -52,9 +52,15 @@ class mysqliWrapper extends DatabaseAbstract implements DatabaseWrapper
             if (!$stmt = $this->link->prepare($sql)) {
                 throw new DatabaseException("Error sql query:$sql");
             }
-            $s = str_repeat('s', count($params));
-            array_unshift($params, $s);
-            call_user_func_array(array($stmt, 'bind_param'), $params);
+
+            $refs = array();
+            foreach ($params as $key => $value) {
+                $refs[$key] = &$params[$key];
+            }
+
+            $s = str_repeat('s', count($refs));
+            array_unshift($refs, $s);
+            call_user_func_array(array($stmt, 'bind_param'), $refs);
         } elseif (!$stmt = $this->link->prepare($sql)) {
             throw new DatabaseException("Error sql query:$sql");
         }
@@ -139,5 +145,3 @@ class mysqliWrapper extends DatabaseAbstract implements DatabaseWrapper
         return $this->link->insert_id;
     }
 }
-
-?>

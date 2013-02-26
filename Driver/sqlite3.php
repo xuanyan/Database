@@ -89,5 +89,3 @@ class sqlite3Wrapper extends DatabaseAbstract implements DatabaseWrapper
         return $this->initialization()->lastInsertRowID();
     }
 }
-
-?>

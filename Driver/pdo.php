@@ -123,4 +123,3 @@ class PDOWrapper extends DatabaseAbstract implements DatabaseWrapper
         return $this->link->lastInsertId();
     }
 }
-?>

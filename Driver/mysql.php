@@ -142,5 +142,3 @@ class mysqlWrapper extends DatabaseAbstract implements DatabaseWrapper
         return mysql_insert_id($this->link);
     }
 }
-
-?>
