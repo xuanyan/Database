@@ -11,6 +11,7 @@
 
 class mysqliWrapper extends DatabaseAbstract implements DatabaseWrapper
 {
+    public $driverName = 'mysql';
     // lazy loading
     protected function initialization()
     {

@@ -19,6 +19,7 @@ class PDOWrapper extends DatabaseAbstract implements DatabaseWrapper
             foreach ($this->initialization as $val) {
                 $this->link->query($val);
             }
+            $this->driverName = $this->link->getAttribute(PDO::ATTR_DRIVER_NAME);
         }
 
         return $this->link;

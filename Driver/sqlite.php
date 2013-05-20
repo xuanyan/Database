@@ -11,6 +11,7 @@
 
 class sqliteWrapper extends DatabaseAbstract implements DatabaseWrapper
 {
+    public $driverName = 'sqlite';
     // lazy loading
     protected function initialization()
     {

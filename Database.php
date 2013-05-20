@@ -127,6 +127,7 @@ abstract class DatabaseAbstract
 {
     protected $initParams = array();
     protected $link = null;
+    public $driverName = null;
 
     protected $config = array(
         'tablePreFix' => null,
